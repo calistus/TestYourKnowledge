@@ -32,8 +32,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Button takeATestButton = (Button) findViewById(R.id.take_a_test_button);
-
-
+        Button historyButton = (Button) findViewById(R.id.history_button);
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, HistoryActivty.class));
+            }
+        });
 
         String destDir = "/data/data/" + getPackageName() +
                 "/databases/";
@@ -43,24 +48,23 @@ public class MainActivity extends AppCompatActivity {
             //---make sure directory exists---
             File directory = new File(destDir);
             directory.mkdirs();
-            //---copy the db from the assets folder into
-            // the databases folder---
-            try {
-                CopyDB(getBaseContext().getAssets().open("questions_warehouse"),
-                        new FileOutputStream(destPath));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+        }
+        //---copy the db from the assets folder into
+        // the databases folder---
+        try {
+            CopyDB(getBaseContext().getAssets().open("questions_warehouse"),
+                    new FileOutputStream(destPath));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         db = new QuestionsDBHelper(this);
         takeATestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(MainActivity.this,TakeATest.class));
-
             }
         });
     }

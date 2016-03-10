@@ -15,7 +15,7 @@ public class DBAdapter {
     static final String DATABASE_NAME = "questions_warehouse";
     static final String TABLE_QUESTIONS = "questions";
     static final String TABLE_ANSWERS = "answer";
-    static final int DATABASE_VERSION = 2;
+    static final int DATABASE_VERSION = 5;
 
     final Context context;
     DatabaseHelper DBHelper;
@@ -67,7 +67,7 @@ public class DBAdapter {
     public Cursor getAnswers(long rowId) throws SQLException {
         Cursor mCursor =
                 db.query(true, TABLE_ANSWERS, new String[]{"id",
-                                "ans1", "ans2", "ans3", "ans3", "answer_set",}, "id" + "=" + rowId, null,
+                                "ans1", "ans2", "ans3", "answer4", "answer_set"}, "id" + "=" + rowId, null,
                         null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
